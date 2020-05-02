@@ -8,5 +8,15 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "if-env": "^1.0.4",
+    "mongoose": "^5.9.11"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.3"
+  }
 }
