@@ -1,6 +1,6 @@
 import React from "react";
 
-function Nav() {
+function Nav(page) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="/">Google Books Connect</a>
@@ -9,8 +9,8 @@ function Nav() {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-                <li className="nav-item active">
-                <a className="nav-link" href="#">Search <span class="sr-only">(current)</span></a>
+                <li className="nav-item">
+                <a className="nav-link" href="#">Search</a>
                 </li>
                 <li className="nav-item">
                 <a className="nav-link" href="#">Save</a>
