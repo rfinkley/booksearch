@@ -1,8 +1,18 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Search from "./pages/Search";
+import Nav from "./components/Nav";
 
 function App() {
   return (
-    <h1>Google Book Search</h1>
+    <Router>
+      <div>
+        <Nav />
+        <Switch>
+          <Route exact path="/" component={Search} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
