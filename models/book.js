@@ -3,9 +3,10 @@ const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
   title: { type: String, required: true },
+  subtitle: String,
   author: { type: String, required: true },
-  synopsis: String,
-  link: String,
+  description: String,
+  preview: String,
   image: { type: String, required: false }
 });
 
