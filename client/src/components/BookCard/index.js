@@ -1,19 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./style.css";
 
 export function FormBtn_Save(props) {
     return (
-      <button {...props} className="btn btn-success bookCard-btn-save">
+      <a {...props} className="btn btn-success bookCard-btn-save">
         {props.children}
-      </button>
+      </a>
     );
 }
 
 export function FormBtn_View(props) {
     return (
-      <button {...props} className="btn btn-success bookCard-btn-view">
+      <a {...props} href={props.href} className="btn btn-success bookCard-btn-view">
         {props.children}
-      </button>
+      </a>
     );
 }
 
@@ -26,7 +27,7 @@ function BookCard(props) {
                 <h2>{props.title}</h2>
                 <p>Subtitle: {props.subtitle}</p>
                 <p>Author(s): {props.author}</p>
-                <FormBtn_View >View</FormBtn_View>
+                <FormBtn_View href={props.preview} >View</FormBtn_View>
                 <FormBtn_Save >Save</FormBtn_Save>
             </div>
         </div>
