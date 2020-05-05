@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron";
 import { Col, Row, Container } from "../components/Grid";
-// import { Link } from "react-router-dom";
 import API from "../utils/API";
 import { Input, FormBtn } from "../components/SearchForm";
 import BookCard from "../components/BookCard";
@@ -66,11 +65,12 @@ class Books extends Component {
               {this.state.books.map(book => (
                 <div>
                 <BookCard
-                  author={book.volumeInfo.authors}
+                  author={book.volumeInfo.authors.join(", ")}
                   title={book.volumeInfo.title}
                   subtitle={book.volumeInfo.subtitle}
                   image={book.volumeInfo.imageLinks.thumbnail}
                   description={book.volumeInfo.description}
+                  preview={book.volumeInfo.previewLink}
                 />
                 </div>
               ))}
