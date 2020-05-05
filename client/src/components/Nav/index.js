@@ -10,10 +10,10 @@ function Nav(page) {
         <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
                 <li className="nav-item">
-                <a className="nav-link" href="#">Search</a>
+                <a className="nav-link" href="/">Search</a>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link" href="#">Save</a>
+                <a className="nav-link" href="/saved">Save</a>
                 </li>
             </ul>
         </div>
