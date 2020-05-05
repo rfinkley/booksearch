@@ -1,54 +1,33 @@
 import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron";
-// import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
+// import { Link } from "react-router-dom";
+import API from "../utils/API";
 import { Input, FormBtn } from "../components/SearchForm";
+import BookCard from "../components/BookCard";
 
 class Books extends Component {
   state = {
     books: [],
-    title: "",
-    author: "",
-    synopsis: ""
+    query: "",
   };
 
-//   componentDidMount() {
-//     this.loadBooks();
-//   }
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
 
-//   loadBooks = () => {
-//     API.getBooks()
-//       .then(res =>
-//         this.setState({ books: res.data, title: "", author: "", synopsis: "" })
-//       )
-//       .catch(err => console.log(err));
-//   };
-
-//   deleteBook = id => {
-//     API.deleteBook(id)
-//       .then(res => this.loadBooks())
-//       .catch(err => console.log(err));
-//   };
-
-//   handleInputChange = event => {
-//     const { name, value } = event.target;
-//     this.setState({
-//       [name]: value
-//     });
-//   };
-
-//   handleFormSubmit = event => {
-//     event.preventDefault();
-//     if (this.state.title && this.state.author) {
-//       API.saveBook({
-//         title: this.state.title,
-//         author: this.state.author,
-//         synopsis: this.state.synopsis
-//       })
-//         .then(res => this.loadBooks())
-//         .catch(err => console.log(err));
-//     }
-//   };
+  handleFormSubmit = event => {
+    event.preventDefault();
+    if (this.state.query) {
+      API.bookSearch(this.state.query)
+        .then(res => this.setState({"books": res.data.items}))
+        .catch(err => console.log(err));
+    }
+    this.state.query = "";
+  };
 
   render() {
     return (
@@ -65,8 +44,36 @@ class Books extends Component {
           <Col size="sm-12">
             <Container fluid>
               <h2>Book Search</h2>
-              <Input />
-              <FormBtn>Search</FormBtn>
+              <Input 
+                value={this.state.query}
+                onChange={this.handleInputChange}
+                name="query"
+                placeholder="Enter book title"
+              />
+              <FormBtn
+                disabled={!(this.state.query)}
+                onClick={this.handleFormSubmit}
+              >
+                Search
+              </FormBtn>
+            </Container>
+          </Col>
+        </Row>
+        <Row>
+          <Col size="sm-12">
+            <Container fluid>
+              <h2>Results</h2>
+              {this.state.books.map(book => (
+                <div>
+                <BookCard
+                  author={book.volumeInfo.authors}
+                  title={book.volumeInfo.title}
+                  subtitle={book.volumeInfo.subtitle}
+                  image={book.volumeInfo.imageLinks.thumbnail}
+                  description={book.volumeInfo.description}
+                />
+                </div>
+              ))}
             </Container>
           </Col>
         </Row>
