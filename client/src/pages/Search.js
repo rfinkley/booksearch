@@ -3,7 +3,7 @@ import Jumbotron from "../components/Jumbotron";
 import { Col, Row, Container } from "../components/Grid";
 import API from "../utils/API";
 import { Input, FormBtn } from "../components/SearchForm";
-import BookCard from "../components/BookCard";
+import {FormBtnSave, FormBtnView, BookCard} from "../components/BookCard";
 
 class Books extends Component {
   state = {
@@ -25,8 +25,27 @@ class Books extends Component {
         .then(res => this.setState({"books": res.data.items}))
         .catch(err => console.log(err));
     }
-    this.state.query = "";
+    this.setState({query: ""});
   };
+
+  handleSave = event => {
+    console.log(this.state.books[event].volumeInfo.authors.join(", "));
+    console.log(this.state.books[event].volumeInfo.title);
+    console.log(this.state.books[event].volumeInfo.subtitle);
+    console.log(this.state.books[event].volumeInfo.imageLinks.thumbnail);
+    console.log(this.state.books[event].volumeInfo.description);
+    console.log(this.state.books[event].volumeInfo.previewLink);
+    
+    API.saveBook({
+      authors: this.state.books[event].volumeInfo.authors.join(", "),
+      title: this.state.books[event].volumeInfo.title,
+      subtitle: this.state.books[event].volumeInfo.subtitle,
+      image: this.state.books[event].volumeInfo.imageLinks.thumbnail,
+      description: this.state.books[event].volumeInfo.description,
+      preview: this.state.books[event].volumeInfo.previewLink
+    })
+    .catch(err => console.log(err));
+  }
 
   render() {
     return (
@@ -54,7 +73,7 @@ class Books extends Component {
                 onClick={this.handleFormSubmit}
               >
                 Search
-              </FormBtn>
+              </FormBtn >
             </Container>
           </Col>
         </Row>
@@ -62,17 +81,26 @@ class Books extends Component {
           <Col size="sm-12">
             <Container fluid>
               <h2>Results</h2>
-              {this.state.books.map(book => (
-                <div>
-                <BookCard
-                  author={book.volumeInfo.authors.join(", ")}
-                  title={book.volumeInfo.title}
-                  subtitle={book.volumeInfo.subtitle}
-                  image={book.volumeInfo.imageLinks.thumbnail}
-                  description={book.volumeInfo.description}
-                  preview={book.volumeInfo.previewLink}
-                />
-                </div>
+              {this.state.books.map( (book, index) => (
+                <BookCard key={index} className="container my-4">
+                  <div className="row">
+                    <div className="col">
+                      <h2>{book.volumeInfo.title}</h2>
+                      <p>Subtitle: {book.volumeInfo.subtitle ? book.volumeInfo.subtitle : "No Subtitle"}  </p>
+                      <p>Author(s): {book.volumeInfo.authors.join(", ")} </p>
+                      <FormBtnSave onClick={() => this.handleSave(index)} >Save</FormBtnSave>
+                      <FormBtnView href={book.volumeInfo.previewLink} >View</FormBtnView>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-2">
+                      <img src={book.volumeInfo.imageLinks.thumbnail} alt="Book Cover" className="img-thumbnail" />
+                    </div>
+                    <div className="col-10">
+                      <p>Description: {book.volumeInfo.description}</p>
+                    </div>
+                  </div>
+                </BookCard>
               ))}
             </Container>
           </Col>
