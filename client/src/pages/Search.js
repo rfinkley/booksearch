@@ -23,7 +23,6 @@ class Books extends Component {
     if (this.state.query) {
       API.bookSearch(this.state.query)
         .then(res => {
-          console.log(res.data.items[0].volumeInfo.authors.join(", "));
           this.setState({"books": res.data.items})
         }) 
         .catch(err => console.log(err));
