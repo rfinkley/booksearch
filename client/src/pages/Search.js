@@ -22,7 +22,10 @@ class Books extends Component {
     event.preventDefault();
     if (this.state.query) {
       API.bookSearch(this.state.query)
-        .then(res => this.setState({"books": res.data.items}))
+        .then(res => {
+          console.log(res.data.items[0].volumeInfo.authors.join(", "));
+          this.setState({"books": res.data.items})
+        }) 
         .catch(err => console.log(err));
     }
     this.setState({query: ""});
@@ -87,7 +90,7 @@ class Books extends Component {
                     <div className="col">
                       <h2>{book.volumeInfo.title}</h2>
                       <p>Subtitle: {book.volumeInfo.subtitle ? book.volumeInfo.subtitle : "No Subtitle"}  </p>
-                      <p>Author(s): {book.volumeInfo.authors.join(", ")} </p>
+                      <p>Author(s): {book.volumeInfo.authors}</p>
                       <FormBtnSave onClick={() => this.handleSave(index)} >Save</FormBtnSave>
                       <FormBtnView href={book.volumeInfo.previewLink} >View</FormBtnView>
                     </div>
