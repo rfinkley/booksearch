@@ -1,11 +1,11 @@
-.bookCard-btn-save {
+.bookCard-btn {
     position: absolute;
-    top: 5px;
+    top: 50px;
     right: 5px;
 }
 
 .bookCard-btn-view {
     position: absolute;
-    top: 5px;
+    top: 50px;
     right: 80px;
 }

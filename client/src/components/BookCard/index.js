@@ -3,7 +3,7 @@ import "./style.css";
 
 export function FormBtnSave(props) {
     return (
-      <button {...props} className="btn btn-success bookCard-btn-save">
+      <button {...props} className="btn btn-success bookCard-btn">
         {props.children}
       </button>
     );
@@ -15,6 +15,14 @@ export function FormBtnView(props) {
         {props.children}
       </a>
     );
+}
+
+export function FormBtnDelete(props) {
+  return (
+    <button {...props} className="btn btn-success bookCard-btn">
+      {props.children}
+    </button>
+  );
 }
 
 export function BookCard(props) {
